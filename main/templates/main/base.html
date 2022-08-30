@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base</title>
+</head>
+<body>
+    {% if not 'user_id' in request.session %}
+    <a href="{% url 'user_regist' %}">[회원가입]</a>
+    <br>
+    <a href="{% url 'login' %}">[로그인]</a>
+    {% else %}
+        {{request.session.name}}님 안녕하세요
+        <br><br>
+        <a href="{% url 'logout' %}">{{request.session.user_id}} [로그아웃]</a>
+    {% endif %}
+
+    {% if message %}
+        <script>
+            alert('{{ message }}');
+        </script>
+    {% endif %}
+    
+    {% block content %}
+    <!--content 자리-->
+    {% endblock content %}
+</body>
+</html>

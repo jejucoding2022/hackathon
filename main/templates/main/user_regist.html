@@ -1,0 +1,63 @@
+{% block content %}
+<div class="content">
+    <!-- Content -->
+    <h1>회원가입</h1>
+    <div id="content-main">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <fieldset class="module aligned">
+                    <div class="form-row field-user_id">
+                        <div>
+                            <label class="required" for="id_user_id">User id : </label>
+                            <input type="text" name="user_id" class="vTextField" maxlength="50" required id="id_user_id">
+                        </div>
+                    </div>
+                    <div class="form-row field-password">
+                        <div>
+                            <label class="required" for="id_password">Password : </label>
+                            <input type="text" name="password" class="vTextField" maxlength="50" required id="id_password">
+                        </div>
+                    </div>
+                    <div class="form-row field-name">
+                        <div>
+                            <label class="required" for="id_name">Name : </label>
+                            <input type="text" name="name" class="vTextField" maxlength="50" required id="id_name">
+                        </div>
+                    </div>
+                    <div class="form-row field-phone">
+                        <div>
+                            <label class="required" for="id_phone">Phone : </label>
+                            <input type="text" name="phone" class="vTextField" maxlength="50" required id="id_phone">
+                        </div>
+                    </div>
+                    <div class="form-row field-birth">
+                        <div>
+                            <label class="required" for="id_birth">Birth : </label>
+                            <input type="text" name="birth" class="vDateField" maxlength="10" required id="id_birth">
+                        </div>
+                    </div>
+                    <div class="form-row field-user_imate">
+                        <div>
+                            <label class="required" for="id_user_image">User image : </label>
+                            <input type="file" name="user_image" accept="image/*" id="id_user_image">
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="submit-row">
+                    <input type="submit" value="저장" class="btn btn-primary" name="_save">
+                </div>
+            </div>
+        </form>
+    </div>
+    <br class="clear">
+    <!-- END Content -->
+</div>
+
+{% if message %}
+    <script>
+        alert('{{ message }}');
+    </script>
+{% endif %}
+
+{% endblock %}
