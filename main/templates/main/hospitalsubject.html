@@ -6,56 +6,74 @@
 총 개수: {{data.totCnt}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<hr>
-<form action="{% url 'hospitalsubject' %}">
-    {% for subject in subjects %}
-    <div class="jejumap-item" id="jejumap-item-hangyeong">
-        <input type="checkbox" class="" id="check-area" data-city="notJcity" name='rad_sub' value='{{ subject }}'>
-        <div class="mapshape"></div>
-        <label class="" for="check-area">{{ subject }}</label>
-    </div>
-    {% endfor %}
-    <button type="submit" class="Search">진료과목 찾기</button>
-</form>
 
 <hr>
-<table>
-{% for i in data.data %}
-    <!--라디오 버튼을 눌렀을 때-->
-    {% if selected_locations %}
-        {% for j in selected_locations %}
-        {% if j in i.addressDoro %}
-            <!--진료과목 별-->
-            {% if selected_subject %}
-                {% if selected_subject.0 in i.medicalSubject %}
-                <tr>
-                    <td><a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a></td>
-                    <td>{{i.licensingDate}}</td>
-                    <td>{{i.addressDoro}}</td>
-                    <td>{{i.medicalWorkerCount}}</td>
-                    <td>{{i.patientRoomCount}}</td>
-                    <td>{{i.medicalSubject}}</td>
-                </tr>
-                {% endif %}
-            {% else %}
-            <!--진료과목 선택을 안했을 때-->
-            <tr>
-                <td><a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a></td>
-                <td>{{i.licensingDate}}</td>
-                <td>{{i.addressDoro}}</td>
-                <td>{{i.medicalWorkerCount}}</td>
-                <td>{{i.patientRoomCount}}</td>
-                <td>{{i.medicalSubject}}</td>
-            </tr>
-            {% endif %}
-        {% endif %}
+<div class="container">
+    
+    <form class="subject-items" action="{% url 'hospitalsubject' %}">
+        <h4 style="display: block; width:100%; margin: 10px;">진료과목</h4>
+        {% for subject in subjects %}
+        <div class="subjects" id="">
+            <input type="checkbox" class="subject-check" id="check-area-{{forloop.counter}}" name='rad_sub' value='{{ subject }}'>
+            <label class="subject-item-title" for="check-area-{{forloop.counter}}"">{{ subject }}</label>
+            <div class=""></div>
+        </div>
         {% endfor %}
-    <!--라디오 버튼을 누르지 않고 넘겼을 때-->
-    {% else %}
-        {{i}}
-    {% endif %}
-{% endfor %}
-</table>
+        <button style="margin-top: 1.5rem;"type="submit" class="btn btn-outline-primary">진료과목 찾기</button>
+    </form>
+    
+    <div class="hospital-list">
+    {% for i in data.data %}
+        <!--라디오 버튼을 눌렀을 때-->
+        {% if selected_locations %}
+            {% for j in selected_locations %}
+            {% if j in i.addressDoro %}
+                <!--진료과목 별-->
+                {% if selected_subject %}
+                    {% if selected_subject.0 in i.medicalSubject %}
+                    <div class="card mt-2">
+                        <h5 class="card-header">
+                            <a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a>
+                        </h5>
+                        <dl class="card-content">
+                            <dt class="card-item-title">위치</dt>
+                            <dd class="card-item-txt">{{i.addressDoro}}</dd>
+                            <dt class="card-item-title">의사수</dt>
+                            <dd class="card-item-txt">{{i.medicalWorkerCount}}</dd>
+                            <dt class="card-item-title">병실수</dt>
+                            <dd class="card-item-txt">{{i.patientRoomCount}}</dd>
+                            <dt class="card-item-title">진료과목</dt>
+                            <dd class="card-item-txt">{{i.medicalSubject}}</dd>
+                        </dl>
+                    </div>
+                    {% endif %}
+                {% else %}
+                <!--진료과목 선택을 안했을 때-->
+                <div class="card mt-2">
+                    <h5 class="card-header">
+                        <a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a>
+                    </h5>
+                    <dl class="card-content">
+                        <dt class="card-item-title">위치</dt>
+                        <dd class="card-item-txt">{{i.addressDoro}}</dd>
+                        <dt class="card-item-title">의사수</dt>
+                        <dd class="card-item-txt">{{i.medicalWorkerCount}}</dd>
+                        <dt class="card-item-title">병실수</dt>
+                        <dd class="card-item-txt">{{i.patientRoomCount}}</dd>
+                        <dt class="card-item-title">진료과목</dt>
+                        <dd class="card-item-txt">{{i.medicalSubject}}</dd>
+                    </dl>
+                </div>
+                {% endif %}
+            {% endif %}
+            {% endfor %}
+        <!--라디오 버튼을 누르지 않고 넘겼을 때-->
+        {% else %}
+            {{i}}
+        {% endif %}
+    {% endfor %}
+    </div>
 
+</p>
 
 {% endblock %}

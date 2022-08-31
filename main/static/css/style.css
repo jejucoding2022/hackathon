@@ -5,8 +5,15 @@ html {
     height: 100%;
     color: #333;
     font-family: 'Noto Sans KR', Roboto, sans-serif;
+    overflow: hidden;
 }
-
+body {
+    max-height: 100%;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
 
 .jejumap-header {
     margin-bottom: 2rem;
@@ -197,4 +204,97 @@ label[for='check-area-all'] {
     width: 200px;
     height: 30px;
     border-radius: 5px;
+}
+.container {
+    display: flex;
+}
+.subject-items {
+    max-width: 200px;
+    min-width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.subject-check {
+    display: none;
+}
+.subject-check +label{
+    display: inline-block;
+    width: 65px;
+    height: 80px;
+    border: 0.5px solid black;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: auto;
+}
+#check-area-1 +label{
+    border-top-left-radius: 10px;
+}
+#check-area-2 +label{
+    border-left-width: 0;
+    border-right-width: 0;
+}
+#check-area-3 +label{
+    border-top-right-radius: 10px;
+
+}
+#check-area-4 +label{
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+#check-area-5 +label {
+    border-width: 0;
+}
+#check-area-6 +label {
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+#check-area-8 +label {
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+#check-area-10 +label{
+    border-bottom-left-radius: 10px;
+    border-top-width: 0;
+}
+#check-area-11 +label{
+    border-top: 0;
+    border-left: 0;
+}
+.subject-check:checked +label {
+    background-color: #6997E4;
+    color: white;
+}
+
+.hospital-list {
+    margin-left: 10%;
+    width: 70%;
+    overflow-y: scroll;
+    max-height: 800px;
+    padding-right: 10px;
+}
+.Search {
+    height: 55px;
+}
+.card-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.card-item-title {
+    width: 20%;
+    min-width: 20%;
+    padding-left: 5px;
+}
+.card-item-txt {
+    min-width: 70%;
+    width: 70%;
+    max-height: 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
 }
