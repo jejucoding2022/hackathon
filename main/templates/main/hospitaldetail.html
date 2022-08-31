@@ -37,6 +37,29 @@
     .review_container{
         display: inline-block;
     }
+    .star {
+    position: relative;
+    font-size: 2rem;
+    color: #ddd;
+  }
+  
+  .star input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .star span {
+    width: 0;
+    position: absolute; 
+    left: 0;
+    color: red;
+    overflow: hidden;
+    pointer-events: none;
+  }
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -99,15 +122,13 @@
     </div>
 
     <div class="review_star">
-        <fieldset>
-            <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
-            <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
-            <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
-            <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
-            <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
-        </fieldset>
+        <span class="star">
+            ★★★★★
+            <span>★★★★★</span>
+            <input type="range" oninput="drawStar(this)" value="1" step="2" min="0" max="10">
+          </span>
 
-        <label for="id_star">Star:</label><input type="number" name="star" required="" id="id_star">
+        <input type="hidden" name="star" required="" id="id_star">
     </div>
 
     <div class="review content">
@@ -182,6 +203,12 @@
         })
 
     })
+
+    /* 별점 */
+    const drawStar = (target) => {
+        document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+        document.getElementById('id_star').value = `${target.value / 2}`;
+    }
 </script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
