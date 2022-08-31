@@ -8,7 +8,7 @@ from django.contrib import auth
 
 from main.models import Review
 
-your_appkey = '6614t13ct60404b1333jr04t3r41_c60'
+your_appkey = 'j4tt61b4t03otj0_4ro344te4b16t43e'
 status = '영업/정상'
 bizSmallType='병원'
 
@@ -48,8 +48,7 @@ def jsondecode(url):
         data = response.json()
         return data
     except json.JSONDecodeError as e:
-        print(e)
-        return jsondecode(url)
+        pass
 
 def index(request):  
     context = {

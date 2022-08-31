@@ -32,7 +32,7 @@
         {% else %}
             {{request.session.name}}님 안녕하세요
             <br><br>
-            <a href="{% url 'logout' %}">{{request.session.user_id}} [로그아웃]</a>
+            <a href="{% url 'logout' %}" class="logout">{{request.session.user_id}} [로그아웃]</a>
         {% endif %}
         </div>
     </nav>
@@ -49,6 +49,12 @@
     <script>
         function showPopup_login() { window.open("{% url 'login' %}", "a", "width=700, height=400, left=100, top=100"); }
         function showPopup_signout()  { window.open("{% url 'user_regist' %}", "a", "width=700, height=600, left=100, top=100"); }
+        
+        const $logout = document.querySelector(".logout")
+        $logout.addEventListener('click', ()=>{
+            alert('로그아웃 하셨습니다.')
+            window.location.reload()
+        })
     </script>
     
     {% block content %}
