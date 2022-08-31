@@ -10,9 +10,9 @@
 <form action="{% url 'hospitalsubject' %}">
     {% for subject in subjects %}
     <div class="jejumap-item" id="jejumap-item-hangyeong">
-        <input type="checkbox" class="jejumap-check te-elem" id="check-area" data-city="notJcity" name='rad_sub' value='{{ subject }}'>
+        <input type="checkbox" class="" id="check-area" data-city="notJcity" name='rad_sub' value='{{ subject }}'>
         <div class="mapshape"></div>
-        <label class="jejumap-item-title te-elem" for="check-area">{{ subject }}</label>
+        <label class="" for="check-area">{{ subject }}</label>
     </div>
     {% endfor %}
     <button type="submit" class="Search">진료과목 찾기</button>

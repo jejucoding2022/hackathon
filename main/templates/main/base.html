@@ -7,6 +7,11 @@
     <title>base</title>
 </head>
 <body>
+    <link rel="shortcut icon" href="#">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     {% if not 'user_id' in request.session %}
     <a href="{% url 'user_regist' %}">[회원가입]</a>
     <br>
