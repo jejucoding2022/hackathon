@@ -42,6 +42,15 @@ subjects = [
     ('치과')
 ]
 
+def jsondecode(url):
+    try:
+        response = requests.get(url)
+        data = response.json()
+        return data
+    except json.JSONDecodeError as e:
+        print(e)
+        return jsondecode(url)
+
 def index(request):  
     context = {
         'locations':locations
@@ -136,8 +145,10 @@ def hospitallist(request):
     # 병원api
     url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&limit=100'
 
-    response = requests.get(url)
-    data = response.json()
+    data = jsondecode(url)
+
+    # response = requests.get(url)
+    # data = response.json()
 
     context={
         'selected_locations': selected_locations,
@@ -153,8 +164,9 @@ def hospitalsubject(request):
     # 병원api
     url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&limit=100'
 
-    response = requests.get(url)
-    data = response.json()
+    data = jsondecode(url)
+    # response = requests.get(url)
+    # data = response.json()
 
     context={
         'selected_locations': request.session['selected_locations'],
@@ -170,8 +182,7 @@ def hospitaldetail(request, name):
     # 병원api
     url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&companyName={name}'
 
-    response = requests.get(url)
-    data = response.json()
+    data = jsondecode(url)
 
     # 데이터가 종종 update날짜만 다른 2개 이상인 값이 있음 ex) 서귀포열린병원
     # update 날짜가 최신인 것만 취급
