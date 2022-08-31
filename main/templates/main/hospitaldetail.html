@@ -19,7 +19,19 @@
     }
     .information{
         display: inline-block;
+        height: 1px;
         margin-left: 10px;
+    }
+    .subject{
+        display: block;
+        text-overflow:ellipsis;
+    }
+    .information > .subject{
+        display:inline-block;
+        width:200px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
 
     .review_container{
@@ -28,7 +40,6 @@
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-{{data.data.0}}
 <article>
     <section>
         <header class="hospital">{{data.data.0.companyName}}</header>
@@ -39,7 +50,8 @@
             </div>
             <div class="information">
                 <div class="subject">{{data.data.0.medicalSubject}}</div>
-                <div class="location">{{data.data.0.addressDoro}}</div>
+                <div class="location">
+                    {{data.data.0.addressDoro}}</div>
             </div>
         </div>
     </section>
@@ -51,8 +63,6 @@
 </article>
 
 
-<h1>{{data.data.0.companyName}}</h1>
-<h3>{{data.data.0.addressJibun}}</h3>
 
 <!-- 평균 값 -->
 {% if total_star.star__avg %}
@@ -75,20 +85,60 @@
     </tr>
     {% endfor %}
 </table>
-    
-<label for="id_user_id">User id:</label><input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
 
-<label for="id_title">Title:</label><input type="text" name="title" maxlength="30" required="" id="id_title">
+<div class="review_container">
 
-<label for="id_content">Content:</label><textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
+    <!--review id : hidden-->
+    <div class="review_id" style="display: none;">
+        <label for="id_user_id">User id:</label>
+        <input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
+    </div>
 
-<label for="id_star">Star:</label><input type="number" name="star" required="" id="id_star">
+    <div class="review_title">
+        <label for="id_title">Title:</label><input type="text" name="title" maxlength="30" required="" id="id_title">
+    </div>
 
-<label for="id_companyName">CompanyName:</label><input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
+    <div class="review_star">
+        <fieldset>
+            <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+            <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+            <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+            <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+            <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+        </fieldset>
 
-<label for="id_licenseDate">LicenseDate:</label><input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
+        <label for="id_star">Star:</label><input type="number" name="star" required="" id="id_star">
+    </div>
 
-<button type="submit" class="btnAjax save btn btn-default">Save</button>
+    <div class="review content">
+        <label for="id_content">Content:</label>
+        <textarea name="content" cols="40" rows="10" required="" id="id_content" placeholder="리뷰를 달아주세요"></textarea>
+    </div>
+
+    <!--review companyname : hidden-->
+    <div class="review_company" style="display: none;">
+        <label for="id_companyName">CompanyName:</label>
+        <input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
+    </div>
+
+    <!--review licensedate : hidden-->
+    <div class="review_license" style="display: none;">
+        <label for="id_licenseDate">LicenseDate:</label>
+        <input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
+    </div>
+
+    <button type="submit" class="btnAjax save btn btn-default">Save</button>
+
+</div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -164,7 +214,7 @@ geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) 
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
         });
         infowindow.open(map, marker);
 
