@@ -41,12 +41,14 @@
     <!--팝업창-->
         <script>
             alert('{{ message }}');
+            window.close();
+            window.opener.location.reload(); 
         </script>
     {% endif %}
 
     <script>
         function showPopup_login() { window.open("{% url 'login' %}", "a", "width=700, height=400, left=100, top=100"); }
-        function showPopup_signout()  { window.open("{% url 'user_regist' %}", "a", "width=700, height=400, left=100, top=100"); }
+        function showPopup_signout()  { window.open("{% url 'user_regist' %}", "a", "width=700, height=600, left=100, top=100"); }
     </script>
     
     {% block content %}

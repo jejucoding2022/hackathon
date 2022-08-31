@@ -98,11 +98,10 @@ def logout(request):
     #context['message'] = "로그아웃 되었습니다."
     # return redirect('/', context)
     context = {
-        'message' : "로그아웃 되었습니다.",
         'locations' : locations # 추가 (hyunju_20220831)
     }
-    # return redirect('index') # 수정 (hyunju_20220831)
-    return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
+    return redirect('index') # 수정 (hyunju_20220831)
+    #return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
 
 
 # 회원가입
@@ -110,14 +109,20 @@ def user_regist(request):
     if request.method == "GET":
         return render(request, 'main/user_regist.html')
     elif request.method == 'POST':
-        context = {}
-
         user_id=request.POST['user_id']
         password=request.POST['password']
         name=request.POST['name']
         phone=request.POST['phone']
         birth=request.POST['birth']
-        user_image=request.FILES['user_image']
+        user_image=request.FILES.get('user_image')
+
+        # birth YYYY-MM-DD 형식 확인
+        if not '-' in birth:
+            context = {
+                'message': "형식을 지켜주세요!",
+                'locations': locations,
+            }
+            return render(request, 'main/user_regist.html', context)
         
         # 회원가입 중복체크
         rs = User.objects.filter(user_id=user_id)
