@@ -119,14 +119,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
-TEMPLATES_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.request',
-)
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

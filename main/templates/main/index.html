@@ -1,31 +1,53 @@
 {% extends "main/base.html" %}
+{% load static %}
+
 {% block content %}
 <!-- content-area 시작 -->
 <div class="content-area">
     <!-- jejumap-container 시작 -->
+    <main class="content-area">
     <section class="jejumap-container">
-        <div class="grid">
-            <form action="{% url 'hospitallist' %}">
+        <form action="{% url 'hospitallist' %}">
             <header class="jejumap-header">
-                <h1 class="main-copy">지도에서 원하는 지역을 선택하세요!</h1>
-                <p>선택하지 않으면 전체 지역에서 찾습니다</p>
+                <h1 class="main-copy">찾고싶은 병원의 지역을 선택하세요!</h1>
             </header>
             <div class="jejumap">
                 <div class="jejumap-items">
-                    {% for location in locations %}
-                    <div class="jejumap-item" id="jejumap-item-hangyeong">
-                        <input type="checkbox" class="jejumap-check te-elem" id="check-area-{{ forloop.counter }}" data-city="notJcity" name='locations' value='{{ location.1 }}'>
-                        <div class="mapshape"></div>
-                        <label class="jejumap-item-title te-elem" for="check-area-{{ forloop.counter }}">{{ location.1 }}</label>
-                    </div>
-                    {% endfor %}
+
                 </div>
             </div>
-            <button type="submit" class="btn big-btn search-map-btn">병원찾기!</button>
-            </form>
-        </div>
+            <div class="d-grid gap-2 col-3 mx-auto">
+                <button type="submit" class="btn btn-primary">
+                    병원 찾기
+                </button>
+            </div>
+        </form>
     </section>
+    </main>
     <!-- jejumap-container 끝 -->
 </div>
 
+<script>
+    const jejumap = "{{locations|safe}}";
+
+    jejumap.forEach((item, idx) => {
+            var l = document.createElement('div');
+            l.setAttribute('class', 'jejumap-item')
+            l.setAttribute('id', `jejumap-item-${idx}`)
+            document.querySelector('.jejumap-items').append(l)
+            var i = document.createElement('input');
+            i.setAttribute('class', 'jejumap-check te-elem')
+            i.setAttribute('type', 'checkbox');
+            i.setAttribute('value', item);
+            i.setAttribute('name', 'locations')
+            i.setAttribute('id', `jejumap-area-${idx+1}`)
+            var j = document.createElement('label');
+            j.setAttribute('for', `jejumap-area-${idx+1}`)
+            j.setAttribute('class', 'jejumap-item-title te-elem')
+            j.textContent= `${item}`
+            var k = document.createElement('div');
+            k.setAttribute('class', 'mapshape')
+            document.querySelector(`#jejumap-item-${idx}`).append(i, k, j)
+        });
+</script>
 {% endblock %}

@@ -13,19 +13,19 @@ status = '영업/정상'
 bizSmallType='병원'
 
 locations = [
-    ('Hangyeong-myeon', '한경면'), 
-    ('Hallim-eup', '한림읍'),
-    ('Aewol-eup', '애월읍'), 
-    ('Jeju-si', '제주시'), 
-    ('Jocheon-eup', '조천읍'), 
-    ('Gujwa-eup', '구좌읍'),
-    ('Daejeong-eup', '대정읍'),
-    ('Andeok-myeon', '안덕면'),
-    ('Seogwipo-si', '서귀포시'),
-    ('Namwon-eup', '남원읍'),
-    ('Pyoseon-myeon', '표선면'),
-    ('Seongsan-eup', '성산읍'),
-    ('Udo-myeon', '우도면'),
+    '한경면', 
+    '한림읍',
+    '애월읍', 
+    '제주시', 
+    '조천읍', 
+    '구좌읍',
+    '대정읍',
+    '안덕면',
+    '서귀포시',
+    '남원읍',
+    '표선면',
+    '성산읍',
+    '우도면',
 ]
 
 subjects = [
