@@ -6,34 +6,57 @@
 총 개수: {{data.totCnt}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<hr>
-<form action="{% url 'hospitalsubject' %}">
-    
-    {% for subject in subjects %}
-    <div class="jejumap-item" id="jejumap-item-hangyeong">
-        <input type="checkbox" class="jejumap-check te-elem" id="check-area-{{ forloop.counter }}" data-city="notJcity" name='rad_sub' value='{{ subject }}'>
-        <div class="mapshape"></div>
-        <label class="jejumap-item-title te-elem" for="check-area-{{ forloop.counter }}">{{ subject }}</label>
-    </div>
-    {% endfor %}
-    <button type="submit" class="Search">진료과목 찾기</button>
-</form>
 
 <hr>
-<table>
+<div class="container">
+
+<!-- <div>
+    <div class="jejumap">
+        <div class="jejumap-items">
+
+        </div>
+    </div>
+    <div class="d-grid gap-2 col-3 mx-auto">
+        <button type="submit" class="btn btn-primary">
+            병원 찾기
+        </button>
+    </div>
+</form> -->
+    <form class="subject-items" action="{% url 'hospitalsubject' %}">
+        <h4 style="display: block;width: 100%; margin:10px;">진료과목</h4>
+        {% for subject in subjects %}
+        <div class="subjects" id="">
+            <input type="checkbox" class="subject-check" id="check-area-{{ forloop.counter }}" name='rad_sub' value='{{ subject }}'>
+            <label class="subject-item-title te-elem" for="check-area-{{ forloop.counter }}">{{ subject }}</label>
+            <div class=""></div>
+        </div>
+        {% endfor %}
+        <button style="margin-top: 1.5rem;" type="submit" class="btn btn-outline-primary">진료과목 찾기</button>
+    </form>
+<!-- </div> -->
+
+<hr>
+<div class="hospital-list">
 {% for i in data.data %}
     <!--라디오 버튼을 눌렀을 때-->
     {% if selected_locations %}
         {% for j in selected_locations %}
         {% if j in i.addressDoro %}
-            <tr>
-                <td><a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a></td>
-                <td>{{i.licensingDate}}</td>
-                <td>{{i.addressDoro}}</td>
-                <td>{{i.medicalWorkerCount}}</td>
-                <td>{{i.patientRoomCount}}</td>
-                <td>{{i.medicalSubject}}</td>
-            </tr>
+        <div class="card mt-2">
+            <h5 class="card-header">
+                <a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a>
+            </h5>
+            <dl class="card-content">
+                <dt class="card-item-title">위치</dt>
+                <dd class="card-item-txt">{{i.addressDoro}}</dd>
+                <dt class="card-item-title">의사수</dt>
+                <dd class="card-item-txt">{{i.medicalWorkerCount}}</dd>
+                <dt class="card-item-title">병실수</dt>
+                <dd class="card-item-txt">{{i.patientRoomCount}}</dd>
+                <dt class="card-item-title">진료과목</dt>
+                <dd class="card-item-txt">{{i.medicalSubject}}</dd>
+            </dl>
+        </div>
         {% endif %}
         {% endfor %}
     <!--라디오 버튼을 누르지 않고 넘겼을 때-->
@@ -41,6 +64,33 @@
         {{i}}
     {% endif %}
 {% endfor %}
-</table>
-
+</div>
+</div>
 {% endblock %}
+
+<!-- <script>
+    const dummy = "{{locations|safe}}"
+    var jejumap = dummy
+    jejumap = jejumap.replace('[', '').replace(']','').replaceAll('"','').replaceAll(`'`,'').replaceAll(' ','').split(',')
+    
+    // console.log(jejumap)
+
+    jejumap.forEach((item, idx) => {
+            var l = document.createElement('div');
+            l.setAttribute('class', 'subjects')
+            document.querySelector('.jejumap-items').append(l)
+            var i = document.createElement('input');
+            i.setAttribute('class', 'subject-check')
+            i.setAttribute('type', 'checkbox');
+            i.setAttribute('value', item);
+            i.setAttribute('name', 'locations')
+            i.setAttribute('id', `check-area-${idx}`)
+            var j = document.createElement('label');
+            j.setAttribute('for', `check-area-${idx}`)
+            j.setAttribute('class', 'subject-item-title te-elem')
+            j.textContent= `${item}`
+            var k = document.createElement('div');
+            k.setAttribute('class', 'mapshape')
+            document.querySelector(`#jejumap-item-${idx}`).append(i, k, j)
+        });
+</script> -->
