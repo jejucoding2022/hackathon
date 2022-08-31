@@ -77,7 +77,7 @@ def login(request):
             context={
                 'user_id': user_id,
                 'name': rs.name,
-                'message': rs.name,
+                'message': rs.name + "님 환영합니다.", # 수정 (hyunju_20220831)
                 'locations':locations
             }
             return render(request, 'main/index.html', context)
@@ -95,8 +95,10 @@ def logout(request):
     # return redirect('/', context)
     context = {
         'message' : "로그아웃 되었습니다.",
+        'locations' : locations # 추가 (hyunju_20220831)
     }
-    return redirect('index')
+    # return redirect('index') # 수정 (hyunju_20220831)
+    return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
 
 
 # 회원가입
