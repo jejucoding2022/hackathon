@@ -209,8 +209,8 @@ label[for='check-area-all'] {
     display: flex;
 }
 .subject-items {
-    max-width: 200px;
-    min-width: 200px;
+    max-width: 245px;
+    min-width: 245px;
     display: flex;
     flex-wrap: wrap;
     height: fit-content;
@@ -221,47 +221,69 @@ label[for='check-area-all'] {
 }
 .subject-check +label{
     display: inline-block;
-    width: 65px;
-    height: 80px;
+    padding: 4px;
+    width: 80px;
+    height: 110px;
     border: 0.5px solid black;
     cursor: pointer;
     text-align: center;
-    vertical-align: auto;
+    vertical-align: bottom;
+    background-color: transparent;
+    background-position: bottom;
+    background-size: 70%;
+    background-repeat: no-repeat;
 }
-#check-area-1 +label{
+#sub-check-area-1 +label{
     border-top-left-radius: 10px;
+    background-image: url("/static/img/stethscope.png");
+
 }
-#check-area-2 +label{
+#sub-check-area-2 +label{
     border-left-width: 0;
-    border-right-width: 0;
+    background-image: url("/static/img/inspiration.png");
 }
-#check-area-3 +label{
+#sub-check-area-3 +label{
     border-top-right-radius: 10px;
-
-}
-#check-area-4 +label{
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-#check-area-5 +label {
-    border-width: 0;
-}
-#check-area-6 +label {
-    border-top-width: 0;
-    border-bottom-width: 0;
-}
-#check-area-8 +label {
     border-left-width: 0;
-    border-right-width: 0;
+    background-image: url("/static/img/surgery.png");
+
+}
+#sub-check-area-4 +label{
+    border-top-width: 0;
+    border-bottom-width: 0;
+    background-image: url("/static/img/anesthesia.png");
+}
+#sub-check-area-5 +label {
+    border-width: 0 0.5px 0 0;
+    background-image: url("/static/img/maternity.png");
+}
+#sub-check-area-6 +label {
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-image: url(/static/img/pediatrics.png);
+}
+#sub-check-area-7 +label{
+    background-image: url(/static/img/otorhinolaryngology.png);
+}
+#sub-check-area-8 +label {
+    border-left-width: 0;
+    background-image: url(/static/img/x-ray.png);
+}
+#sub-check-area-9 +label{
+    background-image: url("/static/img/microscope.png");
+    border-left-width: 0;
 }
 
-#check-area-10 +label{
+#sub-check-area-10 +label{
     border-bottom-left-radius: 10px;
     border-top-width: 0;
+    background-image: url(/static/img/family.png);
 }
-#check-area-11 +label{
+#sub-check-area-11 +label{
     border-top: 0;
     border-left: 0;
+    background-image: url(/static/img/dental.png);
 }
 .subject-check:checked +label {
     background-color: #6997E4;

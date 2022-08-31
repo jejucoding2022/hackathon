@@ -26,8 +26,8 @@
         <h4 style="display: block;width: 100%; margin:10px;">진료과목</h4>
         {% for subject in subjects %}
         <div class="subjects" id="">
-            <input type="checkbox" class="subject-check" id="check-area-{{ forloop.counter }}" name='rad_sub' value='{{ subject }}'>
-            <label class="subject-item-title te-elem" for="check-area-{{ forloop.counter }}">{{ subject }}</label>
+            <input type="checkbox" class="subject-check" id="sub-check-area-{{ forloop.counter }}" name='rad_sub' value='{{ subject }}'>
+            <label class="subject-item-title te-elem" for="sub-check-area-{{ forloop.counter }}">{{ subject }}</label>
             <div class=""></div>
         </div>
         {% endfor %}
