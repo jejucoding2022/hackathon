@@ -6,7 +6,7 @@
 총 개수: {{data.totCnt}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-
+<img src="/main/static/img/내과.png" alt="">
 <hr>
 <div class="container">
     
@@ -14,8 +14,8 @@
         <h4 style="display: block; width:100%; margin: 10px;">진료과목</h4>
         {% for subject in subjects %}
         <div class="subjects" id="">
-            <input type="checkbox" class="subject-check" id="check-area-{{forloop.counter}}" name='rad_sub' value='{{ subject }}'>
-            <label class="subject-item-title" for="check-area-{{forloop.counter}}"">{{ subject }}</label>
+            <input type="checkbox" class="subject-check" id="sub-check-area-{{forloop.counter}}" name='rad_sub' value='{{ subject }}'>
+            <label class="subject-item-title" for="sub-check-area-{{forloop.counter}}"">{{ subject }} <img src="/main/static/img/내과.png" alt=""></label>
             <div class=""></div>
         </div>
         {% endfor %}
