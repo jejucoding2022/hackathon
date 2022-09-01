@@ -22,29 +22,7 @@
         margin-left: 0;
         margin-top: 0;
         padding: 1rem 1rem;
-        /* padding: 1rem 0; */
-        /* line-height: 999em; */
     }
-    .title{
-        /* display: inline-block;
-        text-align: center; */
-    }
-    .information{
-        /* display: inline-block;
-        height: 1px;
-        margin-left: 10px; */
-    }
-    /* .subject{
-        display: block;
-        text-overflow:ellipsis;
-    }
-    .information > .subject{
-        display:inline-block;
-        width:200px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-    } */
     .sprite {
         display: inline-block;
         width: 1px;
@@ -56,14 +34,13 @@
 
     /* 리뷰 */
     .review_container{
-        margin: 30px;
+        display: inline-block;
+        margin-left: 30px;
     }
-
-    /* 리뷰 작성 */
     .star {
-    position: relative;
-    font-size: 2rem;
-    color: #ddd;
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
     }
     .star input {
         width: 100%;
@@ -81,7 +58,6 @@
         overflow: hidden;
         pointer-events: none;
     }
-
     /* 리뷰 평점 */
     .review-score {
         padding: 9px 1rem 0;
@@ -124,78 +100,43 @@
         position: absolute;
     }
 
-    /* 리뷰 작성 */
-    .review-write {
-        padding: 1rem 1rem;
-        border-bottom: 1px solid #96a3ad;
+    .review_response{
+        margin: 25px;
+        border: solid 1px;
+        border-color: black;
+        border-radius: 10px;
+        padding: 10px 20px;
     }
-
-    /* 방문자 리뷰 */
-    .review-list {
-        padding: 1rem 1rem;
+    .review_response > .item{
+        display: inline-block;
     }
-    .review-list-title {
-        padding-top: 22px;
-        padding-bottom: 22px;
+    .review_response > .review_text {
+        margin-left: 10px;
+    }
+    .review_response > .review_text > .title{
         font-size: 20px;
-        border-bottom: 1px solid #ececec;
+        font-weight: 1000;
     }
-    .comment-thumb-td {
-        text-align: center;
-        padding-top: 22px;
-        padding-bottom: 22px;
-        vertical-align: middle;
-        border-bottom: 1px solid #ececec;
+    .review_response > .review_text > .contents{
+        font-size: 17px;
+        font-weight: 300;
     }
-    .comment-thumb-img {
-        width: 80px;
-        height: 80px;
-        border-radius: 2px;
+    .review_response > .date{
+        font-size: 15px;
+        float: right;
     }
-    .comment-content-td {
-        width: 600px;
-        padding-left: 28px;
-        padding-right: 28px;
-        padding-top: 22px;
-        padding-bottom: 22px;
-        vertical-align: middle;
-        border-bottom: 1px solid #ececec;
+    .review_response > .star{
+        font-size: 15px;
+        float: right;    
+        margin-right: 20px;
     }
-    .comment-content-p1 {
-        color: #000;
+    .review_response > .id{
+        float: right;
+        font-size: 18=5px;
+        margin-right: 20px;
     }
-    .comment-content-p2 {
-        margin-top: 3px;
-        color: #757c8a;
-    }
-    .comment-content-p3 {
-        margin-top: 8px;
-        color: #000;
-        line-height: 18px;
-        max-height: 36px;
-        overflow: hidden;
-    }
-    .comment-info-td {
-        width: 150px;
-        padding-top: 22px;
-        padding-bottom: 22px;
-        vertical-align: middle;
-        border-bottom: 1px solid #ececec;
-    }
-    .comment-info-dl {
-        margin-left: 2px;
-        font-size: 12px;
-        line-height: 22px;
-    }
-    .comment-info-dt {
-        float: left;
-        margin-right: 3px;
-        color: #9ba0a8;
-    }
-    .comment-info-dd {
-        float: left;
-        width: 93px;
-        color: #5e636d;
+    .modify-btn {
+        margin-left: 2rem;
     }
 </style>
 
@@ -204,16 +145,12 @@
     <section class="hospital-top-info">
         <header class="hospital">{{data.data.0.companyName}}</header>
         <div class="hospital_information">
-            <div class="title">
-                <!-- <span class="subject">진료과목</span>
-                <span class="subject">{{data.data.0.medicalSubject}}</span> -->
+            <div>
                 진료과목
                 <span class="sprite"></span>
                 {{data.data.0.medicalSubject}}
             </div>
-            <div class="information">
-                <!-- <span class="location">위치</span>
-                <span class="location">{{data.data.0.addressDoro}}</span> -->
+            <div>
                 위치
                 <span class="sprite"></span>
                 {{data.data.0.addressDoro}}
@@ -221,14 +158,12 @@
         </div>
         <div class="map" id="map" style="width:100%;height:350px;"></div>
     </section>
-
 </article>
 
-<!-- 리뷰 -->
-<div class="review_container">
+<div class="review_container container">
     <!-- 리뷰 평점 -->
     <div class="review-score">
-        평점
+        전체 평점
         <span class="review-score-sprite"></span>
         {% if total_star.star__avg %}
             <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -255,7 +190,7 @@
                     {{total_star.star__avg}}
                 </span>
             </div>
-            
+
         {% else %}
             <div class="score-wrapper">
                 <div class="score">
@@ -274,95 +209,74 @@
     </div>
 
     <!-- 리뷰 작성 -->
-    <div class="review-write">
-        <!--review id : hidden-->
-        <div class="review_id" style="display: none;">
-            <label for="id_user_id">User id:</label>
-            <input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
-        </div>
-
-        <div class="review_title">
-            <label for="id_title">Title:</label>
-            <input type="text" name="title" maxlength="30" required="" id="id_title">
-        </div>
-
-        <div class="review_star">
-            <label for="id_star">Star:</label>
-            <!-- <input type="number" name="star" required="" id="id_star"> -->
-            <span class="star">
-                ★★★★★
-                <span>★★★★★</span>
-                <input type="range" name="star" id="id_star" oninput="drawStar(this)" value="1" step="1" min="0" max="10">
-            </span>
-
-            <script>
-                const drawStar = (target) => {
-                    document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
-                }
-            </script>
-        </div>
-
-        <div class="review content">
-            <label for="id_content">Content:</label>
-            <textarea name="content" cols="40" rows="10" required="" id="id_content" placeholder="리뷰를 달아주세요"></textarea>
-        </div>
-
-        <!--review companyname : hidden-->
-        <div class="review_company" style="display: none;">
-            <label for="id_companyName">CompanyName:</label>
-            <input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
-        </div>
-
-        <!--review licensedate : hidden-->
-        <div class="review_license" style="display: none;">
-            <label for="id_licenseDate">LicenseDate:</label>
-            <input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
-        </div>
-
-        <button type="submit" class="btnAjax save btn btn-default">Save</button>
+    <!--review id : hidden-->
+    <div class="review_id" style="display: none;">
+        <label for="id_user_id">User id:</label>
+        <input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
     </div>
+
+    <div class="review_star">
+        <span class="star">
+            ★★★★★
+            <span>★★★★★</span>
+            <input type="range" oninput="drawStar(this)" value="1" step="2" min="0" max="10">
+          </span>
+
+        <input type="hidden" name="star" required="" id="id_star">
+    </div>
+
+    <div class="review_title">
+        <label for="id_title form-label">제목</label>
+        <input type="text" name="title" class="form-control form-label" maxlength="20" required="" id="id_title" placeholder="글자 수 20자 제한">
+    </div>
+
+    <div class="review content">
+        <label for="id_content form-label">내용</label>
+        <textarea name="content" cols="40" rows="5" required="" id="id_content"  class="form-control form-label" maxlength="100" placeholder="리뷰를 달아주세요(글자 수 100자 제한)"></textarea>
+    </div>
+
+    <!--review companyname : hidden-->
+    <div class="review_company" style="display: none;">
+        <label for="id_companyName">CompanyName:</label>
+        <input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
+    </div>
+
+    <!--review licensedate : hidden-->
+    <div class="review_license" style="display: none;">
+        <label for="id_licenseDate">LicenseDate:</label>
+        <input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
+    </div>
+
+    <button type="submit" class="btnAjax save btn btn-outline-primary">평점 남기기</button>
 
     <!-- 방문자 리뷰 -->
-    <div class="review-list">
-        <div class="review-list-title">방문자 리뷰</div>
-        <table>
-            {% for reple in hospital_reples %}
-            <tr>
-                <td class="comment-thumb-td">
-                    <img class="comment-thumb-img">
-                </td>
-                <td class="comment-content-td">
-                    <p class="comment-content-p1">{{reple.title}}</p>
-                    <p class="comment-content-p2">평점 : {{reple.star}}</p>
-                    <p class="comment-content-p3">{{reple.content}}</p>
-                </td>
-                <td class="comment-info-td">
-                    <dl class="comment-info-dl">
-                        <dt class="comment-info-dt">작성자 :</dt>
-                        <dd class="comment-info-dd">{{reple.user_id}}</dd>
-                        <dt class="comment-info-dt">등록일 :</dt>
-                        <dd class="comment-info-dd">{{reple.modified_date}}</dd>
-                    </dl>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+    {% for reple in hospital_reples %}
+    <div class="review_response">
+
+        <div class="review_text item">
+            <div class="title item">
+                {{reple.title}}
+            </div>
+            <div class="contents item">
+                {{reple.content}}
+            </div>
+        </div>
+        <div class="date item">
+            {{reple.modified_date}}
+            <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button>
+        </div>
+        <div class="star item">
+            {{reple.star}}
+        </div>
+        <div class="id item">
+            {{reple.user_id}}
+        </div>
     </div>
+    {% endfor %}
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 리뷰 작성 script -->
 <script>
     let btnAjax = document.querySelector('.btnAjax');
 
@@ -373,8 +287,6 @@
         let star = document.getElementById("id_star").value;
         let companyName = document.getElementById("id_companyName").value;
         let licenseDate = document.getElementById("id_licenseDate").value;
-
-        
 
         let param = {
             'user_id':user_id,
@@ -398,50 +310,57 @@
                 alert('정보가 등록되었습니다.');
             },
             error: function(){
-                alert('error!!')
+                alert('로그인 후 사용해주세요!');
             }
         })
 
     })
+
+    /* 별점 */
+    const drawStar = (target) => {
+        document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+        document.getElementById('id_star').value = `${target.value / 2}`;
+    }
 </script>
 
+<!-- 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) {
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch("{{data.data.0.addressDoro}}", function(result, status) { // 수정
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+        // 정상적으로 검색이 완료됐으면 
+        if (status === kakao.maps.services.Status.OK) {
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
-        });
-        infowindow.open(map, marker);
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
+            });
+            infowindow.open(map, marker);
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } 
+    });    
 </script>
 {% endblock %}
