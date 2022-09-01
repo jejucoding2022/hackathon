@@ -140,6 +140,9 @@
     font-size: 18=5px;
     margin-right: 20px;
     }
+    .modify-btn {
+        margin-left: 2rem;
+    }
 </style>
 <!-- 카카오 api를 위한 캐쉬 삭제 -->
 <meta http-equiv="Cache-Control" content="no-cache" />
@@ -182,6 +185,8 @@
         </div>
         <div class="date item">
             {{reple.modified_date}}
+            <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button>
         </div>
         <div class="star item">
             {{reple.star}}
