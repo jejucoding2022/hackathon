@@ -42,26 +42,131 @@
     position: relative;
     font-size: 2rem;
     color: #ddd;
-  }
+    }
   
-  .star input {
+    .star input {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     opacity: 0;
     cursor: pointer;
-  }
-  
-  .star span {
+    }
+
+    .star span {
     width: 0;
     position: absolute; 
     left: 0;
     color: red;
     overflow: hidden;
     pointer-events: none;
-  }
+    }
+    /* 리뷰 평점 */
+    .review-score {
+        padding: 9px 1rem 0;
+        height: 46px;
+        border-bottom: 1px solid #96a3ad;
+        font-family: #fff, sans-serif;
+        color:#fff;
+        font-size: 20px;
+        background: #a9b3bc;
+    }
+    .review-score-sprite {
+        display: inline-block;
+        width: 1px;
+        height: 14px;
+        margin: 10px 10px;
+        background-color: #fff;
+        /* background-color: #e4e4e4; */
+        vertical-align: middle;
+    }
+    .score-wrapper {
+        display: inline-block;
+        font-family: sans-serif;
+        font-size: 20px;
+        /* border: 1px solid black; */
+        /* color: gold; */
+        color: rgb(0, 68, 255); 
+    }
+    .score-wrapper > .score {
+        position: relative;
+        display: inline-flex;
+        color: rgb(0, 68, 255); 
+        /* border: 1px solid red; */
+    }
+    .score-wrapper > .score > .foreground {
+        color: rgb(0, 68, 255); 
+        overflow: hidden;
+        width: 0%;
+    }
+    .score-wrapper > .score > .background {
+        position: absolute;
+    }
+
+    .review_response{
+    margin: 25px;
+    border: solid 1px;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 20px;
+    }
+    .review_response > .item{
+    display: inline-block;
+    }
+    .review_response > .review_text {
+    margin-left: 10px;
+    }
+    .review_response > .review_text > .title{
+    font-size: 20px;
+    font-weight: 1000;
+    }
+    .review_response > .review_text > .contents{
+    font-size: 17px;
+    font-weight: 300;
+    }
+    .review_response > .date{
+    font-size: 15px;
+    float: right;
+    }
+
+    .review_response > .star{
+    font-size: 15px;
+    float: right;    
+    margin-right: 20px;
+    }
+
+    .review_response > .id{
+    float: right;
+    font-size: 18=5px;
+    margin-right: 20px;
+    }
+    /* .modify-btn {
+        margin-left: 2rem;
+    } */
+    .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.active, .accordion:hover {
+  background-color: #ccc;   
+}
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
 </style>
+<!-- 카카오 api를 위한 캐쉬 삭제 -->
+<meta http-equiv="Cache-Control" content="no-cache" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <article>
@@ -86,31 +191,96 @@
 
 </article>
 
-
-
-<!-- 평균 값 -->
-{% if total_star.star__avg %}
-    <h5>{{total_star.star__avg}}</h5>
-{% else %}
-    <h5>0</h5>
-{% endif %}
-
-<hr>
-
-<h5>후기</h5>
-<table>
-    {% for reple in hospital_reples %}
-    <tr>
-        <td>{{reple.user_id}}</td>
-        <td>{{reple.title}}</td>
-        <td>{{reple.content}}</td>
-        <td>{{reple.star}}</td>
-        <td>{{reple.modified_date}}</td>
-    </tr>
-    {% endfor %}
-</table>
-
 <div class="review_container container">
+
+    {% for reple in hospital_reples %}
+    <!-- <button class="accordion" style="display: flex; justify-content: space-around;">
+        <div class="title item">
+            {{reple.title}}
+        </div>
+        <div class="">
+            {{reple.user_id}}
+            {{reple.star}}
+            {{reple.modified_date}}
+            <!-- <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button> -->
+        <!-- </div>
+    
+    </button>
+        <div class="panel">
+            {{reple.content}}
+        </div> --> 
+
+    <div class="review_response">
+
+        <div class="review_text item">
+            <div class="title item">
+                {{reple.title}}
+            </div>
+            <div class="contents item">
+                {{reple.content}}
+            </div>
+        </div>
+        <div class="date item">
+            {{reple.modified_date}}
+            <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button>
+        </div>
+        <div class="star item">
+            {{reple.star}}
+        </div>
+        <div class="id item">
+            {{reple.user_id}}
+        </div>
+    </div>
+    {% endfor %}
+    <!-- 리뷰 평점 -->
+    <div class="review-score">
+        전체 평점
+        <span class="review-score-sprite"></span>
+        {% if total_star.star__avg %}
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <script>
+                $(function() {
+                    const rate = "{{total_star.star__avg}}";
+                    const max = 5;
+                    const percent = rate / max * 100;
+                    $(".score-wrapper").find(".foreground").css("width", percent + "%");
+                    $(".score-wrapper").find(".display").text(rate);
+                });
+            </script>
+
+            <div class="score-wrapper">
+                <div class="score">
+                    <div class="foreground">
+                        ★★★★★
+                    </div>
+                    <div class="background">
+                        ☆☆☆☆☆
+                    </div>
+                </div>
+                <span class="display">
+                    {{total_star.star__avg}}
+                </span>
+            </div>
+
+        {% else %}
+            <div class="score-wrapper">
+                <div class="score">
+                    <div class="foreground">
+                        ★★★★★
+                    </div>
+                    <div class="background">
+                        ☆☆☆☆☆
+                    </div>
+                </div>
+                <span class="display">
+                    0.0
+                </span>
+            </div>
+        {% endif %}
+    </div>
+    <!-- 리뷰 작성 -->
 
     <!--review id : hidden-->
     <div class="review_id" style="display: none;">
@@ -130,13 +300,14 @@
 
     <div class="review_title">
         <label for="id_title form-label">제목</label>
-        <input type="text" name="title" class="form-control form-label" maxlength="30" required="" id="id_title">
+        <input type="text" name="title" class="form-control form-label" maxlength="20" required="" id="id_title" placeholder="글자 수 20자 제한">
     </div>
 
     <div class="review content">
         <label for="id_content form-label">내용</label>
-        <textarea name="content" cols="40" rows="10" required="" id="id_content"  class="form-control form-label" placeholder="리뷰를 달아주세요"></textarea>
+        <textarea name="content" cols="40" rows="5" required="" id="id_content"  class="form-control form-label" maxlength="100" placeholder="리뷰를 달아주세요(글자 수 100자 제한)"></textarea>
     </div>
+
 
     <!--review companyname : hidden-->
     <div class="review_company" style="display: none;">
@@ -206,6 +377,9 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
 <script>
+setTimeout(5000);
+// 쿠키 삭제
+document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/")});
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -250,6 +424,25 @@ geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
 </script>
 {% endblock %}

@@ -14,7 +14,18 @@ a {
     text-decoration: none;
     color: black;
 }
-
+.menuBtn {
+    display: none;
+}
+.menuBtn +label {
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url("/static/img/menu.png");
+    display: none;
+}
 .jejumap-header {
     margin-bottom: 2rem;
     text-align: center;
@@ -321,6 +332,46 @@ label[for='check-area-all'] {
 
 }
 
-@media screen {
+
+
+
+@media screen and (width<766px) {
+    .menuBtn {
+        display: none;
+    }
+    .menuBtn +label{
+        display: inline-block;
+    }
+    .navbar-brand {
+        display: none;
+    }
+    .subject-container {
+        display:flex
+    }
+    .subject-items {
+        position: fixed;
+        margin-left: -245px;
+        background-color: aquamarine;
+        z-index: 10000;
+        transition: 0.3s ease-in;
+    }
+    .menu-on {
+        margin-left: 0;
+    }
+    .hospital-list {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        overflow-y: hidden;
+    }
+    .card-item-title{
+        width: 20%;
+        min-width: none;
+    }
+    .card-item-txt {
+        width: 70%;
+        min-width: none;
+    }
+
     
 }

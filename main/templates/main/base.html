@@ -17,10 +17,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- header banner -->
-    <nav class="navbar bg-light">
+    <nav class="navbar bg-light">   
         <div class="container-fluid">
-            <a href="" class="navbar-brand">jeju hospital</a>
-
+            <div>
+            <button class="menuBtn" id="menu-button"></button><label for="menu-button"></label>
+            <a href="/" class="navbar-brand">jeju hospital</a>
+            </div>
         <div>
         {% if not 'user_id' in request.session %}
             <button class="btn btn-outline-info" type="button" value="회원가입창" onclick="showPopup_signout();">[회원가입]</button>
@@ -52,10 +54,17 @@
             alert('로그아웃 하셨습니다.')
             window.location.reload()
         })
+        
     </script>
     
     {% block content %}
     <!--content 자리-->
     {% endblock content %}
+    <script>
+        $menubtn = document.querySelector(".menuBtn")
+        $menubtn.addEventListener('click', ()=>{
+            document.querySelector(".subject-items").classList.toggle("menu-on")
+        })
+
+    </script>
 </body>
-</html>
