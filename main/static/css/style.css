@@ -205,7 +205,7 @@ label[for='check-area-all'] {
     height: 30px;
     border-radius: 5px;
 }
-.container {
+.subject-container {
     display: flex;
 }
 .subject-items {
@@ -319,4 +319,8 @@ label[for='check-area-all'] {
     white-space: nowrap;
     text-overflow: ellipsis;
 
+}
+
+@media screen {
+    
 }
