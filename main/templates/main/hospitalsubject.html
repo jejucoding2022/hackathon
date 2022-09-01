@@ -69,7 +69,42 @@
             {% endfor %}
         <!--라디오 버튼을 누르지 않고 넘겼을 때-->
         {% else %}
-            {{i}}
+            {% if selected_subject %}
+                {% if selected_subject.0 in i.medicalSubject %}
+                <div class="card mt-2">
+                    <h5 class="card-header">
+                        <a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a>
+                    </h5>
+                    <dl class="card-content">
+                        <dt class="card-item-title">위치</dt>
+                        <dd class="card-item-txt">{{i.addressDoro}}</dd>
+                        <dt class="card-item-title">의사수</dt>
+                        <dd class="card-item-txt">{{i.medicalWorkerCount}}</dd>
+                        <dt class="card-item-title">병실수</dt>
+                        <dd class="card-item-txt">{{i.patientRoomCount}}</dd>
+                        <dt class="card-item-title">진료과목</dt>
+                        <dd class="card-item-txt">{{i.medicalSubject}}</dd>
+                    </dl>
+                </div>
+                {% endif %}
+                {% else %}
+                <!--진료과목 선택을 안했을 때-->
+                <div class="card mt-2">
+                    <h5 class="card-header">
+                        <a href="{% url 'hospitaldetail' i.companyName %}" value="{{i.companyName}}">{{i.companyName}}</a>
+                    </h5>
+                    <dl class="card-content">
+                        <dt class="card-item-title">위치</dt>
+                        <dd class="card-item-txt">{{i.addressDoro}}</dd>
+                        <dt class="card-item-title">의사수</dt>
+                        <dd class="card-item-txt">{{i.medicalWorkerCount}}</dd>
+                        <dt class="card-item-title">병실수</dt>
+                        <dd class="card-item-txt">{{i.patientRoomCount}}</dd>
+                        <dt class="card-item-title">진료과목</dt>
+                        <dd class="card-item-txt">{{i.medicalSubject}}</dd>
+                    </dl>
+                </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
     </div>
