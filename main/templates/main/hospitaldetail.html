@@ -144,8 +144,6 @@
         margin-left: 2rem;
     }
 </style>
-<!-- 카카오 api를 위한 캐쉬 삭제 -->
-<meta http-equiv="Cache-Control" content="no-cache" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <article>
@@ -340,8 +338,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
 <script>
 setTimeout(5000);
-// 쿠키 삭제
-document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/")});
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
