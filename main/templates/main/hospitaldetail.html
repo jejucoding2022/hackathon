@@ -140,9 +140,30 @@
     font-size: 18=5px;
     margin-right: 20px;
     }
-    .modify-btn {
+    /* .modify-btn {
         margin-left: 2rem;
-    }
+    } */
+    .accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.active, .accordion:hover {
+  background-color: #ccc;   
+}
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
 </style>
 <!-- 카카오 api를 위한 캐쉬 삭제 -->
 <meta http-equiv="Cache-Control" content="no-cache" />
@@ -173,6 +194,23 @@
 <div class="review_container container">
 
     {% for reple in hospital_reples %}
+    <!-- <button class="accordion" style="display: flex; justify-content: space-around;">
+        <div class="title item">
+            {{reple.title}}
+        </div>
+        <div class="">
+            {{reple.user_id}}
+            {{reple.star}}
+            {{reple.modified_date}}
+            <!-- <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button> -->
+        <!-- </div>
+    
+    </button>
+        <div class="panel">
+            {{reple.content}}
+        </div> --> 
+
     <div class="review_response">
 
         <div class="review_text item">
@@ -386,6 +424,25 @@ geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
 </script>
 {% endblock %}
