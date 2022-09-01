@@ -4,11 +4,11 @@ import requests
 from django.db.models import Avg
 from django.shortcuts import render, redirect
 from .models import User
-from django.contrib import auth
+from django.http import Http404
 
 from main.models import Review
 
-your_appkey = '6614t13ct60404b1333jr04t3r41_c60'
+your_appkey = 'j4tt61b4t03otj0_4ro344te4b16t43e'
 status = '영업/정상'
 bizSmallType='병원'
 
@@ -30,11 +30,8 @@ locations = [
 
 subjects = [
     ('내과'),
-    ('정신의학과'),
+    ('정신건강의학과'),
     ('외과'),
-    ('정형외과'),
-    ('신경외과'),
-    ('흉부외과'),
     ('마취통증의학과'),
     ('산부인과'),
     ('소아청소년과'),
@@ -42,10 +39,32 @@ subjects = [
     ('영상의학과'),
     ('병리과'),
     ('가정의학과'),
-    ('치과보철과'),
-    ('치과교정과'),
-    ('치주과'),
+    ('치과')
 ]
+
+# api 반복 호출을 방지하는 global 변수
+url_data = ""
+
+def jsondecode():
+    global url_data
+    # 전역변수에 데이터가 있으면 그 데이터 사용
+    if url_data != "":
+        return url_data
+    else:
+        try:
+            # 병원api
+            url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&limit=100'
+            response = requests.get(url)
+            data = response.json()
+            
+            # api로 불러오는 데이터는 전역변수에 저장해서 api 반복호출을 방지한다.
+            url_data = data.copy()
+            return url_data
+        # api 불러오지 못해 JSONDecode Error 발생시 안내
+        except json.JSONDecodeError as e:
+            raise Http404('페이지를 찾을 수 없습니다.새로고침을 시도해보십시오.') 
+
+
 
 def index(request):  
     context = {
@@ -94,11 +113,10 @@ def logout(request):
     #context['message'] = "로그아웃 되었습니다."
     # return redirect('/', context)
     context = {
-        'message' : "로그아웃 되었습니다.",
         'locations' : locations # 추가 (hyunju_20220831)
     }
-    # return redirect('index') # 수정 (hyunju_20220831)
-    return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
+    return redirect('index') # 수정 (hyunju_20220831)
+    #return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
 
 
 # 회원가입
@@ -106,14 +124,20 @@ def user_regist(request):
     if request.method == "GET":
         return render(request, 'main/user_regist.html')
     elif request.method == 'POST':
-        context = {}
-
         user_id=request.POST['user_id']
         password=request.POST['password']
         name=request.POST['name']
         phone=request.POST['phone']
         birth=request.POST['birth']
-        user_image=request.FILES['user_image']
+        user_image=request.FILES.get('user_image')
+
+        # birth YYYY-MM-DD 형식 확인
+        if not '-' in birth:
+            context = {
+                'message': "형식을 지켜주세요!",
+                'locations': locations,
+            }
+            return render(request, 'main/user_regist.html', context)
         
         # 회원가입 중복체크
         rs = User.objects.filter(user_id=user_id)
@@ -136,13 +160,7 @@ def hospitallist(request):
     selected_locations = request.GET.getlist('locations')
     request.session['selected_locations'] = selected_locations
 
-    
-
-    # 병원api
-    url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&limit=100'
-
-    response = requests.get(url)
-    data = response.json()
+    data = jsondecode()
 
     context={
         'selected_locations': selected_locations,
@@ -155,11 +173,7 @@ def hospitalsubject(request):
     selected_subject = request.GET.getlist('rad_sub')
     print(selected_subject)
 
-    # 병원api
-    url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&limit=100'
-
-    response = requests.get(url)
-    data = response.json()
+    data = jsondecode()
 
     context={
         'selected_locations': request.session['selected_locations'],
@@ -170,29 +184,31 @@ def hospitalsubject(request):
     return render(request, 'main/hospitalsubject.html', context)
 
 def hospitaldetail(request, name):
-    print(name)
+    try:
+        # 병원api
+        url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&companyName={name}'
 
-    # 병원api
-    url = f'https://open.jejudatahub.net/api/proxy/tbb1D1a1559at91ababaata1abtba58a/{your_appkey}?openStatus={status}&bizSmallType={bizSmallType}&companyName={name}'
+        response = requests.get(url)
+        data = response.json()
 
-    response = requests.get(url)
-    data = response.json()
+        # 데이터가 종종 update날짜만 다른 2개 이상인 값이 있음 ex) 서귀포열린병원
+        # update 날짜가 최신인 것만 취급
+        data2 = sorted(data['data'], key=lambda x: x['updateAt'], reverse=True)
+        data['data'] = data2
 
-    # 데이터가 종종 update날짜만 다른 2개 이상인 값이 있음 ex) 서귀포열린병원
-    # update 날짜가 최신인 것만 취급
-    data2 = sorted(data['data'], key=lambda x: x['updateAt'], reverse=True)
-    data['data'] = data2
+        # 저장후 불러오기
+        hospital_reples = Review.objects.filter(companyName=name)
+        total_star = Review.objects.filter(companyName=name).aggregate(Avg('star'))
 
-    # 저장후 불러오기
-    hospital_reples = Review.objects.filter(companyName=name)
-    total_star = Review.objects.filter(companyName=name).aggregate(Avg('star'))
+        context={
+            'data':data,
+            'hospital_reples':hospital_reples,
+            'total_star':total_star,
+        }
+        return render(request,'main/hospitaldetail.html',context)
+    except json.JSONDecodeError as e:
+        raise Http404('페이지를 찾을 수 없습니다. 새로고침을 시도해주세요.')
 
-    context={
-        'data':data,
-        'hospital_reples':hospital_reples,
-        'total_star':total_star,
-    }
-    return render(request,'main/hospitaldetail.html',context)
 
 
 def comment(request):
