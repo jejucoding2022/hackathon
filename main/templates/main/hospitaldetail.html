@@ -2,48 +2,288 @@
 {% block content %}
 <!--같은 병원이 2개 이상 나올 때-->
 <!--update 날짜가 최신인 것만 취급함-->
+<style>
+    .hospital{
+        font-size: 22px;
+        margin-left: 30px;
+        margin-top: 30px;
+    }
+    .hospital_information{
+        font-size: 15px;
+        margin-left: 55px;
+        margin-top: 15px;
+    }
+    .title{
+        display: inline-block;
+        text-align: center;
+    }
+    .information{
+        display: inline-block;
+        height: 1px;
+        margin-left: 10px;
+    }
+    .subject{
+        display: block;
+        text-overflow:ellipsis;
+    }
+    .information > .subject{
+        display:inline-block;
+        width:200px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+
+    .review_container{
+        display: inline-block;
+        margin-left: 30px;
+    }
+    .star {
+    position: relative;
+    font-size: 2rem;
+    color: #ddd;
+    }
+  
+    .star input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    }
+
+    .star span {
+    width: 0;
+    position: absolute; 
+    left: 0;
+    color: red;
+    overflow: hidden;
+    pointer-events: none;
+    }
+    /* 리뷰 평점 */
+    .review-score {
+        padding: 9px 1rem 0;
+        height: 46px;
+        border-bottom: 1px solid #96a3ad;
+        font-family: #fff, sans-serif;
+        color:#fff;
+        font-size: 20px;
+        background: #a9b3bc;
+    }
+    .review-score-sprite {
+        display: inline-block;
+        width: 1px;
+        height: 14px;
+        margin: 10px 10px;
+        background-color: #fff;
+        /* background-color: #e4e4e4; */
+        vertical-align: middle;
+    }
+    .score-wrapper {
+        display: inline-block;
+        font-family: sans-serif;
+        font-size: 20px;
+        /* border: 1px solid black; */
+        /* color: gold; */
+        color: rgb(0, 68, 255); 
+    }
+    .score-wrapper > .score {
+        position: relative;
+        display: inline-flex;
+        color: rgb(0, 68, 255); 
+        /* border: 1px solid red; */
+    }
+    .score-wrapper > .score > .foreground {
+        color: rgb(0, 68, 255); 
+        overflow: hidden;
+        width: 0%;
+    }
+    .score-wrapper > .score > .background {
+        position: absolute;
+    }
+
+    .review_response{
+    margin: 25px;
+    border: solid 1px;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 20px;
+    }
+    .review_response > .item{
+    display: inline-block;
+    }
+    .review_response > .review_text {
+    margin-left: 10px;
+    }
+    .review_response > .review_text > .title{
+    font-size: 20px;
+    font-weight: 1000;
+    }
+    .review_response > .review_text > .contents{
+    font-size: 17px;
+    font-weight: 300;
+    }
+    .review_response > .date{
+    font-size: 15px;
+    float: right;
+    }
+
+    .review_response > .star{
+    font-size: 15px;
+    float: right;    
+    margin-right: 20px;
+    }
+
+    .review_response > .id{
+    float: right;
+    font-size: 18=5px;
+    margin-right: 20px;
+    }
+    .modify-btn {
+        margin-left: 2rem;
+    }
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<article>
+    <section>
+        <header class="hospital">{{data.data.0.companyName}}</header>
+        <div class="hospital_information">
+            <div class="title">
+                <div class="subject">진료과목</div>
+                <div class="location">위치</div>
+            </div>
+            <div class="information">
+                <div class="subject">{{data.data.0.medicalSubject}}</div>
+                <div class="location">
+                    {{data.data.0.addressDoro}}</div>
+            </div>
+        </div>
+    </section>
 
-{{data.data.0}}
-<h1>{{data.data.0.companyName}}</h1>
-<h3>{{data.data.0.addressJibun}}</h3>
+    <section>
+        <div id="map" style="width:100%;height:350px;"></div>
+    </section>
 
-<!-- 평균 값 -->
-{% if total_star.star__avg %}
-    <h5>{{total_star.star__avg}}</h5>
-{% else %}
-    <h5>0</h5>
-{% endif %}
+</article>
 
-<hr>
+<div class="review_container container">
 
-<h5>후기</h5>
-<table>
     {% for reple in hospital_reples %}
-    <tr>
-        <td>{{reple.user_id}}</td>
-        <td>{{reple.title}}</td>
-        <td>{{reple.content}}</td>
-        <td>{{reple.star}}</td>
-        <td>{{reple.modified_date}}</td>
-    </tr>
+    <div class="review_response">
+
+        <div class="review_text item">
+            <div class="title item">
+                {{reple.title}}
+            </div>
+            <div class="contents item">
+                {{reple.content}}
+            </div>
+        </div>
+        <div class="date item">
+            {{reple.modified_date}}
+            <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button>
+        </div>
+        <div class="star item">
+            {{reple.star}}
+        </div>
+        <div class="id item">
+            {{reple.user_id}}
+        </div>
+    </div>
     {% endfor %}
-</table>
-    
-<label for="id_user_id">User id:</label><input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
+    <!-- 리뷰 평점 -->
+    <div class="review-score">
+        전체 평점
+        <span class="review-score-sprite"></span>
+        {% if total_star.star__avg %}
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+            <script>
+                $(function() {
+                    const rate = "{{total_star.star__avg}}";
+                    const max = 5;
+                    const percent = rate / max * 100;
+                    $(".score-wrapper").find(".foreground").css("width", percent + "%");
+                    $(".score-wrapper").find(".display").text(rate);
+                });
+            </script>
 
-<label for="id_title">Title:</label><input type="text" name="title" maxlength="30" required="" id="id_title">
+            <div class="score-wrapper">
+                <div class="score">
+                    <div class="foreground">
+                        ★★★★★
+                    </div>
+                    <div class="background">
+                        ☆☆☆☆☆
+                    </div>
+                </div>
+                <span class="display">
+                    {{total_star.star__avg}}
+                </span>
+            </div>
 
-<label for="id_content">Content:</label><textarea name="content" cols="40" rows="10" required="" id="id_content"></textarea>
+        {% else %}
+            <div class="score-wrapper">
+                <div class="score">
+                    <div class="foreground">
+                        ★★★★★
+                    </div>
+                    <div class="background">
+                        ☆☆☆☆☆
+                    </div>
+                </div>
+                <span class="display">
+                    0.0
+                </span>
+            </div>
+        {% endif %}
+    </div>
+    <!-- 리뷰 작성 -->
 
-<label for="id_star">Star:</label><input type="number" name="star" required="" id="id_star">
+    <!--review id : hidden-->
+    <div class="review_id" style="display: none;">
+        <label for="id_user_id">User id:</label>
+        <input type="text" name="user_id" maxlength="20" required="" id="id_user_id" value="{{request.session.user_id}}">
+    </div>
 
-<label for="id_companyName">CompanyName:</label><input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
+    <div class="review_star">
+        <span class="star">
+            ★★★★★
+            <span>★★★★★</span>
+            <input type="range" oninput="drawStar(this)" value="1" step="2" min="0" max="10">
+          </span>
 
-<label for="id_licenseDate">LicenseDate:</label><input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
+        <input type="hidden" name="star" required="" id="id_star">
+    </div>
 
-<button type="submit" class="btnAjax save btn btn-default">Save</button>
+    <div class="review_title">
+        <label for="id_title form-label">제목</label>
+        <input type="text" name="title" class="form-control form-label" maxlength="20" required="" id="id_title" placeholder="글자 수 20자 제한">
+    </div>
+
+    <div class="review content">
+        <label for="id_content form-label">내용</label>
+        <textarea name="content" cols="40" rows="5" required="" id="id_content"  class="form-control form-label" maxlength="100" placeholder="리뷰를 달아주세요(글자 수 100자 제한)"></textarea>
+    </div>
+
+
+    <!--review companyname : hidden-->
+    <div class="review_company" style="display: none;">
+        <label for="id_companyName">CompanyName:</label>
+        <input type="text" name="companyName" maxlength="40" required="" id="id_companyName" value="{{data.data.0.companyName}}">
+    </div>
+
+    <!--review licensedate : hidden-->
+    <div class="review_license" style="display: none;">
+        <label for="id_licenseDate">LicenseDate:</label>
+        <input type="text" name="licenseDate" maxlength="30" required="" id="id_licenseDate" value="{{data.data.0.licensingDate}}">
+    </div>
+
+    <button type="submit" class="btnAjax save btn btn-outline-primary">평점 남기기</button>
+
+</div>
 
 
 
@@ -82,10 +322,67 @@
                 alert('정보가 등록되었습니다.');
             },
             error: function(){
-                alert('error!!')
+                alert('로그인 후 사용해주세요!');
             }
         })
 
     })
+
+    /* 별점 */
+    const drawStar = (target) => {
+        document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+        document.getElementById('id_star').value = `${target.value / 2}`;
+    }
+</script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
+<script>
+setTimeout(5000);
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        //마커 이미지
+        var imageSrc = "https://cdn-icons-png.flaticon.com/512/7902/7902120.png", // 마커이미지의 주소입니다
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            image: markerImage,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
 </script>
 {% endblock %}
