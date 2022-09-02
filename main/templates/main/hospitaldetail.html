@@ -100,12 +100,20 @@
         position: absolute;
     }
 
+    /* 리뷰 작성 창 */
+    .title_title, .content_title, .review{
+        margin-left: 5px;
+        margin-bottom: 10px;
+    }
+
+    
     .review {
         margin-top: 50px;
         font-size: 20px;
         font-weight: 1000;
     }
 
+    /* 리뷰 작성 완료 창 */
     .review_response{
         margin: 15px 0;
         border: solid #a9b3bc 1px;
@@ -228,13 +236,13 @@
         <input type="hidden" name="star" id="id_star">
     </div>
 
-    <div class="review_title">
-        <label for="id_title form-label">제목</label>
+    <div class="review title">
+        <label for="id_title form-label" class="title_title">제목</label>
         <input type="text" name="title" class="form-control form-label" maxlength="20" id="id_title" placeholder="글자 수 20자 제한">
     </div>
 
     <div class="review content">
-        <label for="id_content form-label">내용</label>
+        <label for="id_content form-label" class="content_title">내용</label>
         <textarea name="content" cols="40" rows="5" required="" id="id_content"  class="form-control form-label" maxlength="100" placeholder="리뷰를 달아주세요(글자 수 100자 제한)"></textarea>
     </div>
 
