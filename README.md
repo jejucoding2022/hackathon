@@ -23,13 +23,13 @@
 - OS
     - Mac, Window10
 
-**Back-End
+**Back-End**
 - Web Framework
     - Django 3.2 (Python 3.6.8)
 - 서비스 배포 환경
     - AWS Lightsail
 
-**Front-End
+**Front-End**
 - Web
     - HTML5, CSS, JavaScript
 - API
@@ -70,13 +70,13 @@
 - BE : 오민영
 
 ## 5. UI / BM
-**메인 화면
+**메인 화면**
 ![image](https://user-images.githubusercontent.com/82134668/188096118-5845ec5a-375b-44ca-b6f2-b4e452d73b21.png)
 
-**병원목록 화면
+**병원목록 화면**
 ![image](https://user-images.githubusercontent.com/108389588/188116472-844d414e-1e04-4b3c-bb73-2ea130f5b834.png)
 
-**병원정보 및 리뷰 화면
+**병원정보 및 리뷰 화면**
 ![image](https://user-images.githubusercontent.com/108389588/188116880-fea01379-2bc5-4474-9480-a1cced23b0cf.png)
 
 ## 6. 데이터베이스 모델링(ERD)
