@@ -3,7 +3,7 @@
 <!--같은 병원이 2개 이상 나올 때-->
 <!--update 날짜가 최신인 것만 취급함-->
 <style>
-    .hospital{
+   .hospital{
         font-size: 22px;
         margin-left: 30px;
         margin-top: 30px;
@@ -184,8 +184,6 @@
         </div>
         <div class="date item">
             {{reple.modified_date}}
-            <button class="modify-btn">수정</button>
-            <button type="button" class="btn-close review-delete-btn"></button>
         </div>
         <div class="star item">
             {{reple.star}}
@@ -289,6 +287,7 @@
 
 
 <script>
+    // 후기 등록
     let btnAjax = document.querySelector('.btnAjax');
 
     btnAjax.addEventListener('click', e=>{
@@ -336,6 +335,7 @@
     }
 </script>
 
+<!--local용 api-->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
 <script>
 setTimeout(5000);

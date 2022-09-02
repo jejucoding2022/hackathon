@@ -30,7 +30,8 @@
         </div>
         {% else %}
             {{request.session.name}}님 안녕하세요
-            <a href="{% url 'logout' %}" class="logout btn btn-outline-dark">로그아웃</a>
+            <br><br>
+            <a href="{% url 'logout' %}?next={{request.path}}" class="logout">{{request.session.user_id}} [로그아웃]</a>
         {% endif %}
         </div>
     </nav>
