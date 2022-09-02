@@ -8,7 +8,7 @@ from django.http import Http404
 
 from main.models import Review
 
-your_appkey = 'j4tt61b4t03otj0_4ro344te4b16t43e'
+your_appkey = '4tbo3_o1tppc30orc0ej_p16cco4cett'
 status = '영업/정상'
 bizSmallType='병원'
 
