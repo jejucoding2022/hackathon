@@ -11,10 +11,10 @@
 ### 1.2 기능
 - 제주데이터허브 "[보건, 복지] 병,의원 정보" 사용(https://www.jejudatahub.net/data/view/data/859)
 - 제주 지역과 진료과목에 따라 구분된 병원 목록 제공
+- 병원의 만족도를 확인할 수 있는 별점 제공
 - kakao map api 사용
 - 로그인, 회원가입
 - 후기 작성
-- 병원의 만족도를 확인할 수 있는 별점 제공
 
 ## 2. 개발 환경 및 배포 URL
 ### 2.1 개발 환경
@@ -33,7 +33,7 @@
 - Web
     - HTML5, CSS, JavaScript
 - API
-    - Bootstrap5, Kakao 지도
+    - Bootstrap5, Kakao Map
 
 ### 2.2 배포 URL
 - http://jejuhospital.oreum.icu/
