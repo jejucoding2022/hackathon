@@ -83,7 +83,7 @@ Review 작성
 ![image](https://user-images.githubusercontent.com/82134668/188096199-b967ec17-9f32-4e59-a084-58e8da2663a6.png)
 
 Review 완료
-![image](https://user-images.githubusercontent.com/108389588/188116105-e5fd174f-1da6-41eb-ba28-e0f2064609b7.png)
+![image](https://user-images.githubusercontent.com/108389588/188116880-fea01379-2bc5-4474-9480-a1cced23b0cf.png)
 
 ## 6. 데이터베이스 모델링(ERD)
 ![ERwin](https://user-images.githubusercontent.com/94173023/188053009-61351f80-5786-4afb-b72d-7e21c1d2256d.jpg)
