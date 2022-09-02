@@ -1,27 +1,14 @@
 {% extends "main/base.html" %}
 {% block content %}
 
-{{selected_locations}}
+<!-- {{selected_locations.0}}로 검색한 내용입니다. -->
 
-총 개수: {{data.totCnt}}
+<!-- 총 개수: {{data.totCnt}} -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 
-<hr>
-<div class="container">
 
-<!-- <div>
-    <div class="jejumap">
-        <div class="jejumap-items">
-
-        </div>
-    </div>
-    <div class="d-grid gap-2 col-3 mx-auto">
-        <button type="submit" class="btn btn-primary">
-            병원 찾기
-        </button>
-    </div>
-</form> -->
+<div class="subject-container mt-4">
     <form class="subject-items" action="{% url 'hospitalsubject' %}">
         <h4 style="display: block;width: 100%; margin:10px;">진료과목</h4>
         {% for subject in subjects %}
@@ -31,9 +18,8 @@
             <div class=""></div>
         </div>
         {% endfor %}
-        <button style="margin-top: 1.5rem;" type="submit" class="btn btn-outline-primary">진료과목 찾기</button>
+        <button style="margin-top: 1.5rem;" type="submit" class="btn btn-menu btn-outline-info">진료과목 찾기</button>
     </form>
-<!-- </div> -->
 
 <hr>
 <div class="hospital-list">
@@ -81,30 +67,3 @@
 </div>
 </div>
 {% endblock %}
-
-<!-- <script>
-    const dummy = "{{locations|safe}}"
-    var jejumap = dummy
-    jejumap = jejumap.replace('[', '').replace(']','').replaceAll('"','').replaceAll(`'`,'').replaceAll(' ','').split(',')
-    
-    // console.log(jejumap)
-
-    jejumap.forEach((item, idx) => {
-            var l = document.createElement('div');
-            l.setAttribute('class', 'subjects')
-            document.querySelector('.jejumap-items').append(l)
-            var i = document.createElement('input');
-            i.setAttribute('class', 'subject-check')
-            i.setAttribute('type', 'checkbox');
-            i.setAttribute('value', item);
-            i.setAttribute('name', 'locations')
-            i.setAttribute('id', `check-area-${idx}`)
-            var j = document.createElement('label');
-            j.setAttribute('for', `check-area-${idx}`)
-            j.setAttribute('class', 'subject-item-title te-elem')
-            j.textContent= `${item}`
-            var k = document.createElement('div');
-            k.setAttribute('class', 'mapshape')
-            document.querySelector(`#jejumap-item-${idx}`).append(i, k, j)
-        });
-</script> -->
