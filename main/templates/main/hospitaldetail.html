@@ -3,63 +3,60 @@
 <!--같은 병원이 2개 이상 나올 때-->
 <!--update 날짜가 최신인 것만 취급함-->
 <style>
-   .hospital{
-        font-size: 22px;
-        margin-left: 30px;
-        margin-top: 30px;
+    .hospital-top-info {
+        margin: 30px;
+    }
+    .hospital{
+        font-family: sans-serif;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 36px;
+        overflow: hidden;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #96a3ad;
     }
     .hospital_information{
+        font-family: sans-serif;
         font-size: 15px;
-        margin-left: 55px;
-        margin-top: 15px;
+        text-align: left;
+        margin-left: 0;
+        margin-top: 0;
+        padding: 1rem 1rem;
     }
-    .title{
+    .sprite {
         display: inline-block;
-        text-align: center;
-    }
-    .information{
-        display: inline-block;
-        height: 1px;
-        margin-left: 10px;
-    }
-    .subject{
-        display: block;
-        text-overflow:ellipsis;
-    }
-    .information > .subject{
-        display:inline-block;
-        width:200px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
+        width: 1px;
+        height: 14px;
+        margin: -2px 10px 0;
+        background-color: #e4e4e4;
+        vertical-align: middle;
     }
 
+    /* 리뷰 */
     .review_container{
         display: inline-block;
         margin-left: 30px;
     }
     .star {
-    position: relative;
-    font-size: 2rem;
-    color: #ddd;
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
     }
-  
     .star input {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    opacity: 0;
-    cursor: pointer;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
     }
-
     .star span {
-    width: 0;
-    position: absolute; 
-    left: 0;
-    color: red;
-    overflow: hidden;
-    pointer-events: none;
+        width: 0;
+        position: absolute; 
+        left: 0;
+        color: red;
+        overflow: hidden;
+        pointer-events: none;
     }
     /* 리뷰 평점 */
     .review-score {
@@ -104,95 +101,66 @@
     }
 
     .review_response{
-    margin: 25px;
-    border: solid 1px;
-    border-color: black;
-    border-radius: 10px;
-    padding: 10px 20px;
+        margin: 25px;
+        border: solid 1px;
+        border-color: black;
+        border-radius: 10px;
+        padding: 10px 20px;
     }
     .review_response > .item{
-    display: inline-block;
+        display: inline-block;
     }
     .review_response > .review_text {
-    margin-left: 10px;
+        margin-left: 10px;
     }
     .review_response > .review_text > .title{
-    font-size: 20px;
-    font-weight: 1000;
+        font-size: 20px;
+        font-weight: 1000;
     }
     .review_response > .review_text > .contents{
-    font-size: 17px;
-    font-weight: 300;
+        font-size: 17px;
+        font-weight: 300;
     }
     .review_response > .date{
-    font-size: 15px;
-    float: right;
+        font-size: 15px;
+        float: right;
     }
-
     .review_response > .star{
-    font-size: 15px;
-    float: right;    
-    margin-right: 20px;
+        font-size: 15px;
+        float: right;    
+        margin-right: 20px;
     }
-
     .review_response > .id{
-    float: right;
-    font-size: 18=5px;
-    margin-right: 20px;
+        float: right;
+        font-size: 18=5px;
+        margin-right: 20px;
     }
-    /* .modify-btn {
+    .modify-btn {
         margin-left: 2rem;
-    } */
-
+    }
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <article>
-    <section>
+    <section class="hospital-top-info">
         <header class="hospital">{{data.data.0.companyName}}</header>
         <div class="hospital_information">
-            <div class="title">
-                <div class="subject">진료과목</div>
-                <div class="location">위치</div>
+            <div>
+                진료과목
+                <span class="sprite"></span>
+                {{data.data.0.medicalSubject}}
             </div>
-            <div class="information">
-                <div class="subject">{{data.data.0.medicalSubject}}</div>
-                <div class="location">
-                    {{data.data.0.addressDoro}}</div>
+            <div>
+                위치
+                <span class="sprite"></span>
+                {{data.data.0.addressDoro}}
             </div>
         </div>
+        <div class="map" id="map" style="width:100%;height:350px;"></div>
     </section>
-
-    <section>
-        <div id="map" style="width:100%;height:350px;"></div>
-    </section>
-
 </article>
 
 <div class="review_container container">
-
-    {% for reple in hospital_reples %}
-    <div class="review_response">
-
-        <div class="review_text item">
-            <div class="title item">
-                {{reple.title}}
-            </div>
-            <div class="contents item">
-                {{reple.content}}
-            </div>
-        </div>
-        <div class="date item">
-            {{reple.modified_date}}
-        </div>
-        <div class="star item">
-            {{reple.star}}
-        </div>
-        <div class="id item">
-            {{reple.user_id}}
-        </div>
-    </div>
-    {% endfor %}
     <!-- 리뷰 평점 -->
     <div class="review-score">
         전체 평점
@@ -239,8 +207,8 @@
             </div>
         {% endif %}
     </div>
-    <!-- 리뷰 작성 -->
 
+    <!-- 리뷰 작성 -->
     <!--review id : hidden-->
     <div class="review_id" style="display: none;">
         <label for="id_user_id">User id:</label>
@@ -254,19 +222,18 @@
             <input type="range" oninput="drawStar(this)" value="1" step="2" min="0" max="10">
           </span>
 
-        <input type="hidden" name="star" required="" id="id_star">
+        <input type="hidden" name="star" id="id_star">
     </div>
 
     <div class="review_title">
         <label for="id_title form-label">제목</label>
-        <input type="text" name="title" class="form-control form-label" maxlength="20" required="" id="id_title" placeholder="글자 수 20자 제한">
+        <input type="text" name="title" class="form-control form-label" maxlength="20" id="id_title" placeholder="글자 수 20자 제한">
     </div>
 
     <div class="review content">
         <label for="id_content form-label">내용</label>
         <textarea name="content" cols="40" rows="5" required="" id="id_content"  class="form-control form-label" maxlength="100" placeholder="리뷰를 달아주세요(글자 수 100자 제한)"></textarea>
     </div>
-
 
     <!--review companyname : hidden-->
     <div class="review_company" style="display: none;">
@@ -282,12 +249,35 @@
 
     <button type="submit" class="btnAjax save btn btn-outline-primary">평점 남기기</button>
 
+    <!-- 방문자 리뷰 -->
+    {% for reple in hospital_reples %}
+    <div class="review_response">
+
+        <div class="review_text item">
+            <div class="title item">
+                {{reple.title}}
+            </div>
+            <div class="contents item">
+                {{reple.content}}
+            </div>
+        </div>
+        <div class="date item">
+            {{reple.modified_date}}
+            <button class="modify-btn">수정</button>
+            <button type="button" class="btn-close review-delete-btn"></button>
+        </div>
+        <div class="star item">
+            {{reple.star}}
+        </div>
+        <div class="id item">
+            {{reple.user_id}}
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
-
-
+<!-- 리뷰 작성 script -->
 <script>
-    // 후기 등록
     let btnAjax = document.querySelector('.btnAjax');
 
     btnAjax.addEventListener('click', e=>{
@@ -297,8 +287,6 @@
         let star = document.getElementById("id_star").value;
         let companyName = document.getElementById("id_companyName").value;
         let licenseDate = document.getElementById("id_licenseDate").value;
-
-        
 
         let param = {
             'user_id':user_id,
@@ -322,7 +310,12 @@
                 alert('정보가 등록되었습니다.');
             },
             error: function(){
-                alert('로그인 후 사용해주세요!');
+                if(!user_id){
+                    alert('로그인 후 사용해주세요!');
+                }
+                else if(!star){
+                    alert('별점을 입력해주세요!')
+                }
             }
         })
 
@@ -335,56 +328,47 @@
     }
 </script>
 
-<!--local용 api-->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script>
+<!-- 지도 api -->
+<!-- local api -->
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=13250482f06a179f2463555e2aea1e27&libraries=services"></script> -->
+<!-- 서버 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fdd7a1a36dc1d3f88fb5934292ab2e&libraries=services"></script>
 <script>
-setTimeout(5000);
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch("{{data.data.0.addressDoro}}", function(result, status) { // 수정
 
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch("{{data.data.0.addressJibun}}", function(result, status) {
+        // 정상적으로 검색이 완료됐으면 
+        if (status === kakao.maps.services.Status.OK) {
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-        
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        //마커 이미지
-        var imageSrc = "https://cdn-icons-png.flaticon.com/512/7902/7902120.png", // 마커이미지의 주소입니다
-            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
 
-        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
+            });
+            infowindow.open(map, marker);
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            image: markerImage,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">{{data.data.0.companyName}}</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    
-    } 
-});
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } 
+    });    
 </script>
 {% endblock %}
