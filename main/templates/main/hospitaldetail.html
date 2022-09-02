@@ -100,12 +100,17 @@
         position: absolute;
     }
 
+    .review {
+        margin-top: 50px;
+        font-size: 20px;
+        font-weight: 1000;
+    }
+
     .review_response{
-        margin: 25px;
-        border: solid 1px;
-        border-color: black;
+        margin: 15px 0;
+        border: solid #a9b3bc 1px;
         border-radius: 10px;
-        padding: 10px 20px;
+        padding: 15px 25px;
     }
     .review_response > .item{
         display: inline-block;
@@ -132,11 +137,9 @@
     }
     .review_response > .id{
         float: right;
-        font-size: 18=5px;
+        font-size: 15px;
         margin-right: 20px;
-    }
-    .modify-btn {
-        margin-left: 2rem;
+        color: gray;
     }
 </style>
 
@@ -249,6 +252,7 @@
 
     <button type="submit" class="btnAjax save btn btn-outline-primary">평점 남기기</button>
 
+    <div class="review">Review</div>
     <!-- 방문자 리뷰 -->
     {% for reple in hospital_reples %}
     <div class="review_response">
