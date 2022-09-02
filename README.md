@@ -25,9 +25,9 @@
 
 ### Back-End
 - Web Framework
-    - Django 3.1(Python 3.10)
+    - Django 3.2 (Python 3.6.8)
 - 서비스 배포 환경
-    - vultr docker container
+    - AWS Lightsail
 
 ### Front-End
 - Web
