@@ -72,12 +72,18 @@
 ## 5. UI / BM
 Main 화면
 ![image](https://user-images.githubusercontent.com/82134668/188096118-5845ec5a-375b-44ca-b6f2-b4e452d73b21.png)
+
+HospitalList 화면
+![image](https://user-images.githubusercontent.com/108389588/188116472-844d414e-1e04-4b3c-bb73-2ea130f5b834.png)
+
 HospitalDetail 화면
 ![image](https://user-images.githubusercontent.com/82134668/188096149-63d6867a-640b-418d-b607-69d9a214b6be.png)
+
 Review 작성
 ![image](https://user-images.githubusercontent.com/82134668/188096199-b967ec17-9f32-4e59-a084-58e8da2663a6.png)
+
 Review 완료
-![image](https://user-images.githubusercontent.com/82134668/188096217-50820331-c1ad-49af-adec-124b8bc6163e.png)
+![image](https://user-images.githubusercontent.com/108389588/188116105-e5fd174f-1da6-41eb-ba28-e0f2064609b7.png)
 
 ## 6. 데이터베이스 모델링(ERD)
 ![ERwin](https://user-images.githubusercontent.com/94173023/188053009-61351f80-5786-4afb-b72d-7e21c1d2256d.jpg)
