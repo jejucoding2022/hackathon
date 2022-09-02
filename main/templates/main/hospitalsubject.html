@@ -1,15 +1,14 @@
 {% extends "main/base.html" %}
 {% block content %}
 
-{{selected_locations}}
+<!-- {{selected_locations}}
 
-총 개수: {{data.totCnt}}
+총 개수: {{data.totCnt}} -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<img src="/main/static/img/내과.png" alt="">
-<hr>
-<div class="subject-container">
-    
+
+
+<div class="subject-container mt-4">
     <form class="subject-items" action="{% url 'hospitalsubject' %}">
         <h4 style="display: block; width:100%; margin: 10px;">진료과목</h4>
         {% for subject in subjects %}

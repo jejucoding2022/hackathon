@@ -26,6 +26,10 @@ a {
     background-image: url("/static/img/menu.png");
     display: none;
 }
+.sign-inup {
+    padding-right: 0.5rem;
+
+}
 .jejumap-header {
     margin-bottom: 2rem;
     text-align: center;
@@ -208,18 +212,16 @@ label[for='check-area-all'] {
 .jejumap-item:nth-child(13) .jejumap-check { left: -2px; top: 0; }
 
 .search-map-btn {
-    position: absolute;
-    top: 43%;
-    left: 43%;
-    background-color: #6997E4;
-    width: 200px;
-    height: 30px;
-    border-radius: 5px;
+
+    background-color: #93c5fd !important;
+
+
 }
 .subject-container {
     display: flex;
 }
 .subject-items {
+    margin-left: 2rem;
     max-width: 245px;
     min-width: 245px;
     display: flex;
@@ -297,16 +299,17 @@ label[for='check-area-all'] {
     background-image: url(/static/img/dental.png);
 }
 .subject-check:checked +label {
-    background-color: #6997E4;
+    background-color: #93c5fd;
     color: white;
 }
 
 .hospital-list {
     margin-left: 10%;
+    margin-right: 2rem;
     width: 70%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     max-height: 800px;
-    padding-right: 10px;
+    padding-right: 2rem;
 }
 .Search {
     height: 55px;
@@ -351,18 +354,18 @@ label[for='check-area-all'] {
     .subject-items {
         position: fixed;
         margin-left: -245px;
-        background-color: aquamarine;
+        width: 100%;
         z-index: 10000;
-        transition: 0.3s ease-in;
+        background-color: black;
     }
     .menu-on {
         margin-left: 0;
     }
     .hospital-list {
-        width: 90%;
+        width: 95%;
         margin-left: auto;
         margin-right: auto;
-        overflow-y: hidden;
+        /* overflow-y: auto; */
     }
     .card-item-title{
         width: 20%;

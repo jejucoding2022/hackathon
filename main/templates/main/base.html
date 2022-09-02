@@ -17,21 +17,20 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- header banner -->
-    <nav class="navbar bg-light">   
+    <nav class="navbar" style="background-color: #93c5fd;">   
         <div class="container-fluid">
-            <div>
+            <div style="padding-left:0.5rem;">
             <button class="menuBtn" id="menu-button"></button><label for="menu-button"></label>
-            <a href="/" class="navbar-brand">jeju hospital</a>
+            <a href="/" class="navbar-brand nav-name">jeju hospital</a>
             </div>
-        <div>
+        <div class="sign-inup">
         {% if not 'user_id' in request.session %}
-            <button class="btn btn-outline-info" type="button" value="회원가입창" onclick="showPopup_signout();">[회원가입]</button>
-            <button class="btn btn-outline-info" type="button" value="로그인창" onclick="showPopup_login();">[로그인]</button>
+            <button class="btn btn-outline-light" type="button" value="회원가입창" onclick="showPopup_signout();">회원가입</button>
+            <button class="btn btn-outline-light" type="button" value="로그인창" onclick="showPopup_login();">로그인</button>
         </div>
         {% else %}
             {{request.session.name}}님 안녕하세요
-            <br><br>
-            <a href="{% url 'logout' %}" class="logout">{{request.session.user_id}} [로그아웃]</a>
+            <a href="{% url 'logout' %}" class="logout btn btn-outline-dark">로그아웃</a>
         {% endif %}
         </div>
     </nav>
