@@ -10,16 +10,28 @@
 
 ### 1.2 기능
 - 제주데이터허브 "[보건, 복지] 병,의원 정보" 사용(https://www.jejudatahub.net/data/view/data/859)
+- 제주 지역과 진료과목에 따라 구분된 병원 목록 제공
 - kakao map api 사용
 - 로그인, 회원가입
 - 후기 작성
+- 병원 별 별점 확인
 
 ## 2. 개발 환경 및 배포 URL
 ### 2.1 개발 환경
+Tools: Visual Studio Code, GitHub, Figma, Discord
+OS: Mac, Window10
+
+[Back-End]
 - Web Framework
     - Django 3.1(Python 3.10)
 - 서비스 배포 환경
     - vultr docker container
+    
+[Front-End]
+- Web
+    - HTML5, CSS, JavaScript
+- API
+    - Bootstrap5, Kakao 지도
 
 ### 2.2 배포 URL
 - http://jejuhospital.oreum.icu/
