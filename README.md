@@ -23,13 +23,13 @@
 - OS
     - Mac, Window10
 
-### Back-End
+**Back-End**
 - Web Framework
     - Django 3.2 (Python 3.6.8)
 - 서비스 배포 환경
     - AWS Lightsail
 
-### Front-End
+**Front-End**
 - Web
     - HTML5, CSS, JavaScript
 - API
@@ -70,19 +70,13 @@
 - BE : 오민영
 
 ## 5. UI / BM
-Main 화면
+**메인 화면**
 ![image](https://user-images.githubusercontent.com/82134668/188096118-5845ec5a-375b-44ca-b6f2-b4e452d73b21.png)
 
-HospitalList 화면
+**병원목록 화면**
 ![image](https://user-images.githubusercontent.com/108389588/188116472-844d414e-1e04-4b3c-bb73-2ea130f5b834.png)
 
-HospitalDetail 화면
-![image](https://user-images.githubusercontent.com/82134668/188096149-63d6867a-640b-418d-b607-69d9a214b6be.png)
-
-Review 작성
-![image](https://user-images.githubusercontent.com/82134668/188096199-b967ec17-9f32-4e59-a084-58e8da2663a6.png)
-
-Review 완료
+**병원정보 및 리뷰 화면**
 ![image](https://user-images.githubusercontent.com/108389588/188116880-fea01379-2bc5-4474-9480-a1cced23b0cf.png)
 
 ## 6. 데이터베이스 모델링(ERD)
@@ -101,6 +95,6 @@ Review 완료
 ## 8. 개발하면서 느낀점
 
 - 오민영 : 급하게 잡힌 해커톤임에도 개개인의 시간을 들여 완성해나가는 모습이 인상깊었다. 배포를 하는 작업이다보니 사용자가 해당 웹페이지를 사용하는 과정에서 제한을 두기 위한 에러처리를 꼼꼼하게 하게 되었다.
-- 정혜연 : 짧은 기간의 해커톤을 진행하면서 프로젝트를 이끌어가는 능력이 중요하다는 것을 느꼈고, 하나의 서비스를 완성하기 위해 서로 부족한 부분을 채워가며 협업이 진행된 것 같다. 정해진 시간 내에 깔끔하고 사용성 좋은 화면을 만들기 위해 CSS 중 일부 BootStrap을 적용하였다.
+- 정혜연 : 짧은 기간의 해커톤을 진행하면서 프로젝트를 이끌어가는 능력이 중요하다는 것을 느꼈고, 하나의 서비스를 완성하기 위해 서로 부족한 부분을 채워가며 협업이 진행된 것 같다. 정해진 시간 내에 사용성 좋은 화면을 만들기 위해 CSS 중 일부 BootStrap을 적용하여 깔끔하게 만들 수 있었다.
 - 허현주 : 팀원들과 협업이 잘 이루어져서 정해진 기간내에 기획한 웹페이지를 제작 및 배포할 수 있었다. Front-End와 Back-End로 역할을 분담해서 진행해보는 좋은 경험이었다. api를 이용하여 기능을 구현하는 경험을 할 수 있었다.
 - 김승우 : 처음하는 협업이 좋은 결과로 나올 수 있을것 같아 안심이 되었다. 같이 서비스를 만들면서 내가 어떤부분이 부족한지 알게되었다. 이번에는 FE만을 잡고 만들게 되었는데 더 좋은 서비스를 만들기 위해 BE에 대하여 공부를 해야겠다는 생각이 들었다.
