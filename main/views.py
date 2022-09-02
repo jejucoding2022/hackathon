@@ -113,10 +113,13 @@ def logout(request):
     #context['message'] = "로그아웃 되었습니다."
     # return redirect('/', context)
     context = {
+        #'message': "로그아웃 되었습니다.", # 수정 (hyunju_20220902)
         'locations' : locations # 추가 (hyunju_20220831)
     }
-    return redirect('index') # 수정 (hyunju_20220831)
-    #return render(request, 'main/index.html', context) # 추가 (hyunju_20220831)
+    next_url = request.GET.get('next')
+    return redirect(next_url)
+    #return redirect('index') # 수정 (hyunju_20220831)
+    #return render(request, '', context) # 수정 (hyunju_20220902)
 
 
 # 회원가입
